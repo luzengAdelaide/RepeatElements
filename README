@@ -1,0 +1,51 @@
+##############################################################################
+# to calculate percentage of different repeats in various genome features.
+# These scripts are for refseq gene format, need to change parameters using ensemble
+# date:20/10/2015
+##############################################################################
+pipeline:
+1.        check the gtf genome, delete error genes.
+          ./check_ensemble_protein_coding.pl <genome.protein_coding> 
+
+# for separate genome into different gene regions (e.g. 5UTR exon/intron, 3UTR exon/intron, CDS exon, CDS intron)
+2. 	  merged transcripts to genes
+	  ./merge_transcripts_to_genes_ignoring_symbol.pl <genome.protein_coding.right> > <merged transcripts>
+
+3.	  extract longest transcript from genome	  
+	  ./extract_longest_trascripts.pl <merged transcripts> 	  
+
+4.	  acquire the genes information from merged file 
+	  ./acquire_detail_from_longest_gene.pl <longest genes> <merged transcripts>
+
+5.	  change the gid name same with transcript id name
+	  ./change_gid_name.pl <single.transcript>
+
+6.	  translate good protein codings into UTR format. 
+          ./translate_gtf_to_UTR_format.pl <single.transcript.use>     
+
+7.        change the position of UTR from previous output
+	  ./sort_gtf.pl <UTR_format_genome>  > <UTR_format_genome.right>
+
+8.        split UTR format genome into different gene_features.
+          ./split_gencode_into_gene_features.pl <UTR_format_genome.right > <nunber of nonsex_chrs> 
+
+# for generating intergenic regions
+9.    	  change the gid name same with transcript id name
+	  ./change_gid_name.pl <longest genes>
+
+10.        generate intergenic regions
+	  ./get_intergenic_region.pl <longest genes.use> <directory_fasta> > <intergenic regions>
+
+
+# analyze the association between gene regions generated from previous steps with different datasets (e.g. TEs, REs)
+
+11.        use intersectBed to get overlap between repeats and gene features. Also reply this on regulatory elements analysis
+	  ./overlap.sh
+
+12.	  delete the overlapped results that are below 25bp
+	  ./filter_less_than_25bp.sh <overlapped results>
+
+13.        caculate how many base pairs get overlaped
+	  ./calculate_overlap.sh <trimmed overlapped results>
+
+#############################################################################
