@@ -1,5 +1,5 @@
 ##############################################################################
-# To calculate the percentage of different TE family across genomic regions,
+# To calculate the percentage of different TE families across genomic regions,
 # and regulatory elements(REs) in six human cell types.
 # These scripts are used for refseq gene, need to change parameters when using ensemble
 # date:19/11/2015
