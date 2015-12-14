@@ -7,6 +7,8 @@
 pipeline:
 1.        check the gtf genome, delete error genes.
           ./check_ensemble_protein_coding.pl <genome.protein_coding> 
+# discard_erroneous_gtf.pl was acquired from: https://gist.github.com/joemphilips/ on 10th Nov 2015
+	  ./discard_erroneous_gtf.pl <genome.protein_coding.check> > <genome.protein_coding.right>
 
 # for separate genome into different gene regions (e.g. 5UTR exon/intron, 3UTR exon/intron, CDS exon, CDS intron)
 2. 	  merged transcripts to genes

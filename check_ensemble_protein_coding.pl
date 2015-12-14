@@ -11,7 +11,7 @@ die $usage if @ARGV<1;
 
 my ($genome) = @ARGV;
 open(GENOME, $genome) || die "can not open the file $genome\n";
-my $right_genome = $genome . ".right";
+my $right_genome = $genome . ".check";
 open(OUT, "> $right_genome") || die "can not open the $right_genome\n";
 
 my (@gencode,@temp_gene);
