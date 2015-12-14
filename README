@@ -4,13 +4,14 @@
 # These scripts are used for refseq gene, need to change parameters when using ensemble
 # date:19/11/2015
 ##############################################################################
-pipeline:
+
+Pipeline:
 1.        check the gtf genome, delete error genes.
           ./check_ensemble_protein_coding.pl <genome.protein_coding> 
 # discard_erroneous_gtf.pl was acquired from: https://gist.github.com/joemphilips/ on 10th Nov 2015
 	  ./discard_erroneous_gtf.pl <genome.protein_coding.check> > <genome.protein_coding.right>
 
-# for separate genome into different gene regions (e.g. 5UTR exon/intron, 3UTR exon/intron, CDS exon, CDS intron)
+# To separate genome into different gene regions (e.g. 5UTR exon/intron, 3UTR exon/intron, CDS exon, CDS intron)
 2. 	  merged transcripts to genes
 	  ./merge_transcripts_to_genes_ignoring_symbol.pl <genome.protein_coding.right> > <merged transcripts>
 
@@ -32,7 +33,7 @@ pipeline:
 8.        split UTR format genome into different gene_features.
           ./split_gencode_into_gene_features.pl <UTR_format_genome.right > <nunber of nonsex_chrs> 
 
-# for generating intergenic regions
+# To generating intergenic regions
 9.    	  change the gid name same with transcript id name
 	  ./change_gid_name.pl <longest genes>
 
@@ -40,7 +41,7 @@ pipeline:
 	  ./get_intergenic_region.pl <longest genes.use> <directory_fasta> > <intergenic regions>
 
 
-# acquire the overlapped datasets between gene regions, TEs and REs (e.g. TEs, REs)
+# Acquire the overlapped datasets between gene regions, TEs and REs (e.g. TEs, REs)
 
 11.        use intersectBed to get overlap between repeats and genomic regions. Also reply this on regulatory elements analysis
 	  ./overlap.sh
