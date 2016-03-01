@@ -8,12 +8,10 @@
 Pipeline:
 1.        check the gtf genome, delete error genes.
           ./check_ensemble_protein_coding.pl <genome.protein_coding> 
-# discard_erroneous_gtf.pl was acquired from: https://gist.github.com/joemphilips/ on 10th Nov 2015
-	  ./discard_erroneous_gtf.pl <genome.protein_coding.check> > <genome.protein_coding.right>
 
 # To separate genome into different gene regions (e.g. 5UTR exon/intron, 3UTR exon/intron, CDS exon, CDS intron)
 2. 	  merged transcripts to genes
-	  ./merge_transcripts_to_genes_ignoring_symbol.pl <genome.protein_coding.right> > <merged transcripts>
+	  ./merge_transcripts_to_genes_ignoring_symbol.pl <genome.protein_coding.check> > <merged transcripts>
 
 3.	  extract longest transcript from genome	  
 	  ./extract_longest_trascripts.pl <merged transcripts> 	  
@@ -21,7 +19,7 @@ Pipeline:
 4.	  acquire the longest genes detail from merged genes
 	  ./acquire_detail_from_longest_gene.pl <longest genes> <merged transcripts>
 
-5.	  change the gid name same with transcript id name
+5.	  change the gid name same to transcript id name
 	  ./change_gid_name.pl <single.transcript>
 
 6.	  translate good protein codings into UTR format. 
@@ -33,7 +31,7 @@ Pipeline:
 8.        split UTR format genome into different gene_features.
           ./split_gencode_into_gene_features.pl <UTR_format_genome.right > <nunber of nonsex_chrs> 
 
-# To generating intergenic regions
+# To generate intergenic regions
 9.    	  change the gid name same with transcript id name
 	  ./change_gid_name.pl <longest genes>
 
